@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>电力数据显示</title>
+    <title>電力數據顯示</title>
     <!-- 引入 Tailwind CSS 以实现现代化、响应式布局 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入 Supabase 客户端库 -->
@@ -22,7 +22,7 @@
     <div class="w-full max-w-4xl mx-auto">
         <!-- 页面主标题 -->
         <h1 id="device-id" class="text-4xl font-bold text-center mb-10 text-cyan-400">
-            加载中...
+            載入中...
         </h1>
 
         <!-- 数据板块容器，使用 Flexbox 布局 -->
@@ -30,7 +30,7 @@
             
             <!-- 左侧板块：前一日用电量 -->
             <div class="bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-700 flex flex-col items-center justify-center text-center h-64">
-                <h2 class="text-2xl font-semibold text-gray-400 mb-4">前一日用电量</h2>
+                <h2 class="text-2xl font-semibold text-gray-400 mb-4">昨日用電量</h2>
                 <div class="flex items-baseline">
                     <span id="yesterday-value" class="text-6xl font-bold text-white">0.00</span>
                     <span class="text-2xl font-medium text-gray-500 ml-2">kWh</span>
@@ -39,7 +39,7 @@
 
             <!-- 右侧板块：今日用电量 -->
             <div class="bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-700 flex flex-col items-center justify-center text-center h-64">
-                <h2 class="text-2xl font-semibold text-gray-400 mb-2">今日用电量</h2>
+                <h2 class="text-2xl font-semibold text-gray-400 mb-2">今日用電量</h2>
                 <p class="text-sm text-gray-500 mb-4">(截至 <span id="current-time">--:--</span>)</p>
                 <div class="flex items-baseline">
                     <span id="today-value" class="text-6xl font-bold text-white">0.00</span>
@@ -48,14 +48,14 @@
             </div>
 
         </div>
-        <p class="text-center text-gray-600 mt-8 text-sm">数据每 5 分钟自动刷新</p>
+        <p class="text-center text-gray-600 mt-8 text-sm">數據每 5 分鐘自動刷新</p>
     </div>
 
     <script type="module">
         // --- 配置区域：请将此处替换为您自己的信息 ---
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL'; // 替换成您的 Supabase 项目 URL
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // 替换成您的 Supabase anon key
-        const DEVICE_NAME = '空调 (AirCon)'; // 您想在页面顶部显示的设备名称
+        const SUPABASE_URL = 'https://htjayiwozzczmnlhasdp.supabase.co'; // 替换成您的 Supabase 项目 URL
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh0amF5aXdvenpjem1ubGhhc2RwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyNjA5NzYsImV4cCI6MjA2ODgzNjk3Nn0.kYo-msQxjSegY0I8fI8huA5ycBhxOdK9UP567Wjphns'; // 替换成您的 Supabase anon key
+        const DEVICE_NAME = '冷氣機 (AirCon)'; // 您想在页面顶部显示的设备名称
         // ----------------------------------------------------
 
         // 初始化 Supabase 客户端
@@ -74,8 +74,8 @@
         async function fetchData() {
             // 检查配置是否已填写
             if (SUPABASE_URL === 'YOUR_SUPABASE_URL' || SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY') {
-                deviceIdElement.textContent = '请先配置 Supabase';
-                console.error("错误：请在脚本中填写您的 Supabase URL 和 anon key。");
+                deviceIdElement.textContent = '請先配置 Supabase';
+                console.error("錯誤：請在腳本中填寫您的 Supabase URL 和 anon key。");
                 return;
             }
             
@@ -86,11 +86,11 @@
                 const { data, error } = await supabaseClient.rpc('get_hws_ac_usage');
 
                 // --- 侦错步骤：在控制台印出从 Supabase 收到的原始资料 ---
-                console.log('从 Supabase 收到的原始资料:', data);
+                console.log('從 Supabase 收到的原始資料:', data);
 
                 if (error) {
-                    console.error('获取数据时出错:', error);
-                    deviceIdElement.textContent = '数据获取失败';
+                    console.error('獲取數據時出錯:', error);
+                    deviceIdElement.textContent = '數據獲取失敗';
                     return;
                 }
                 
@@ -98,8 +98,8 @@
                 updateUI(data);
 
             } catch (err) {
-                console.error('发生意外错误:', err);
-                deviceIdElement.textContent = '发生意外错误';
+                console.error('發生意外錯誤:', err);
+                deviceIdElement.textContent = '發生意外錯誤';
             }
         }
 
